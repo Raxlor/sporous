@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (!$_SESSION['nombre_empleado_session']) {
+  ?>
+    <script type="text/javascript">
+      location.href='../../../../login.php';
+    </script>
+  <?php
+}else {
+ ?>
 
 <!--
   ____                              ____ _ _            _
@@ -37,7 +46,7 @@ $Tipo_de_cliente=$_POST['Tipo_de_cliente'];
 if ($_POST['Tipo_de_cliente']=='Todos') {
    $sql_cliente="SELECT * FROM `Clientes_normales`";
 }else {
-  $sql_cliente="SELECT *,COUNT(*) as cliente FROM `Clientes_normales` WHERE `Tipo_de_cliente`='$Tipo_de_cliente' or `Nombre` Like '$Nombre' or `Cédula`='$Cédula' or `Email` like '$Email' GROUP BY `id_cliente` ORDER BY `Clientes_normales`.`Nombre` ASC";
+  $sql_cliente="SELECT *,COUNT(*) as cliente FROM `Clientes_normales` WHERE `Tipo_de_cliente`='$Tipo_de_cliente' and `Nombre` Like '$Nombre' or `Cédula`='$Cédula' or `Email` like '$Email' GROUP BY `id_cliente` ORDER BY `Clientes_normales`.`Nombre` ASC";
   }
 $mysli=mysqli_query($conexion,$sql_cliente);
 $mysli_contador=mysqli_query($conexion,$sql_contador);
@@ -74,4 +83,4 @@ while ($cliente=mysqli_fetch_array($mysli)) {
  <script src="../../assets/pages/lightbox.js"></script>
  <script src="../../assets/js/Tables.js"></script>
 
-<
+<?php } ?>

@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (!$_SESSION['nombre_empleado_session']) {
+  ?>
+    <script type="text/javascript">
+      location.href='../../../../login.php';
+    </script>
+  <?php
+}else {
 
 include '../../componentes/conexion/conexion.php';
   $sql_categoria='SELECT * FROM `categorias`';// enlaces de categoria
@@ -245,7 +253,6 @@ include '../../componentes/conexion/conexion.php';
 <!-- limites_form -->
 <script src="assets/js/limites_form.js"></script>
 <?php
-
-
+}
 }
 ?>

@@ -1,5 +1,13 @@
 <?php
   session_start();
+  if (!$_SESSION['nombre_empleado_session']) {
+    ?>
+      <script type="text/javascript">
+        location.href='../../../../login.php';
+      </script>
+    <?php
+  }else {
+
   include '../../../componentes/conexion/conexion.php';
     //////////////////////////////////////////////////////////////////////////
     //  ____            _     _                    _ _            _        ///
@@ -28,6 +36,8 @@
     $fecha=$_POST['fecha'];
     $fecha_Pago=$_POST['fecha_Pago'];
     $Inversión=$_POST['Inversión'];
+    $Inversión=str_replace('$','',$Inversión);
+    $Inversión=str_replace(',','',$Inversión);
     if (!$_POST['PAgo_por_mes']) {
       $Pago_mensual='No Aplica';
     }else {
@@ -165,13 +175,14 @@
             </script>
           <?php
         }
+      }
+
  ?>
 
 
 
 
 
-<a href="#"></a>
 <!--
   ____   __             _  ___            ____   ___ ____   ___
  |___ \ / /_           / |/ _ \          |___ \ / _ \___ \ / _ \

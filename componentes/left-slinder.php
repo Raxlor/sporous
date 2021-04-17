@@ -35,7 +35,7 @@
                       <li><a href="javascript:Listado_corredor_de_bolsa(<?php echo $id ?>)">Listado Gestores de Capitales</a></li>
                     </ul>
                 </li>
-                <li>
+                <li >
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i><span> Nomina <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                     <ul class="submenu">
                       <li><a href="javascript:Nomina_cliente(<?php echo $id ?>)">Nomina Cliente</a></li>

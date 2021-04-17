@@ -1,11 +1,17 @@
- <!--
-                          _            _ _            _                                                       _
+<?php
+session_start();
+if (!$_SESSION['nombre_empleado_session']){
+  ?>
+    <script type="text/javascript">
+      location.href='../../../../login.php';
+    </script>
+  <?php
+}else {
+ ?> <!--
   ___  ___  __ _ _ __ ___| |__     ___| (_) ___ _ __ | |_ ___   _ __   __ _ _ __ __ _   _ __   ___  _ __ ___ (_)_ __   __ _
  / __|/ _ \/ _` | '__/ __| '_ \   / __| | |/ _ \ '_ \| __/ _ \ | '_ \ / _` | '__/ _` | | '_ \ / _ \| '_ ` _ \| | '_ \ / _` |
  \__ \  __/ (_| | | | (__| | | | | (__| | |  __/ | | | ||  __/ | |_) | (_| | | | (_| | | | | | (_) | | | | | | | | | | (_| |
  |___/\___|\__,_|_|  \___|_| |_|  \___|_|_|\___|_| |_|\__\___| | .__/ \__,_|_|  \__,_| |_| |_|\___/|_| |_| |_|_|_| |_|\__,_|
-                                                               |_|
-
 -->
 <?php
 setlocale(LC_MONETARY, 'en_US');
@@ -88,13 +94,19 @@ setlocale(LC_MONETARY, 'en_US');
           $prev=$comision_deposito_fijo-$Comision_deposito_isr;
         }elseif ($cliente['Tipo_de_cliente']=='Capital Compuesto') {
           $prev=$inversion*$porcentaje/100;
-       }elseif ($cliente['Tipo_de_cliente']=='Pago Trismestral') {
+       }elseif ($cliente['Tipo_de_cliente']=='Pago Mensual') {
+         $prev=$inversion*$porcentaje/100;
+      }elseif ($cliente['Tipo_de_cliente']=='Pago Trismestral') {
          $y=1;
          $prev=0;
-         while ($y <= 3) {
+         $aux=0;
+         while ($y < 4) {
             $y++."<Br>";
-           $inversion+=$prev+=$inversion*$porcentaje/100;
+             $inversion=$prev+=$inversion*$porcentaje/100;
+              $aux=$aux+$prev;
+             money_format('%(#10n',$aux)."<br>";
          }
+         $prev=$aux;
        }
         // else {
         //   // sacar porciento
@@ -134,3 +146,6 @@ setlocale(LC_MONETARY, 'en_US');
 
   <script src="../../assets/pages/lightbox.js"></script>
   <script src="../../assets/js/Tables.js"></script>
+<?php
+}
+ ?>

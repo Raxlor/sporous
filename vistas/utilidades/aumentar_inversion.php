@@ -1,13 +1,4 @@
 <?php
-session_start();
-if (!$_SESSION['nombre_empleado_session']) {
-  ?>
-    <script type="text/javascript">
-      location.href='../../../../login.php';
-    </script>
-  <?php
-}else {
-
 include '../../componentes/conexion/conexion.php';
 $id=$_POST['id'];
 
@@ -46,13 +37,13 @@ if (!$permisos['Permiso_cliente']==1 && !$permisos['Permiso_Master']==1 ) {
     <div class="page-title-box">
         <div class="row align-items-center">
             <div class="col-sm-6">
-                <h4 class="page-title">Listado Cliente</h4>
+                <h4 class="page-title">Aumentar Inversióness</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
                     <li class="breadcrumb-item"><a href="javascript:Escritorio();">Escritorio</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Clientes</a></li>
-                    <li class="breadcrumb-item active">Listado Cliente</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Herramientas</a></li>
+                    <li class="breadcrumb-item active">Aumentar Inversióness</li>
                 </ol>
             </div>
         </div>
@@ -60,7 +51,7 @@ if (!$permisos['Permiso_cliente']==1 && !$permisos['Permiso_Master']==1 ) {
         <div class="card shadow-none">
 
             <div class="card-body">
-              <form class="" action="javascript:void(0)" method="post" id="search_cliente_jquery_form">
+              <form class="" action="javascript:void(0)" method="post" id="search_Aumentar_inversion_jquery_form">
 
               <div class="row">
                 <div class="col-md-1">
@@ -126,17 +117,16 @@ if (!$permisos['Permiso_cliente']==1 && !$permisos['Permiso_Master']==1 ) {
 <div class="" id="Alerta_new_surtidora">
 </div>
 
-<script src="../../assets/js/acciones.js"></script>
+<script src="../assets/js/acciones.js?v=<?php echo base64_encode(date('y-d-m')) ?>"></script>
 
 <script src="assets/js/Tables.js"></script>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
 <script src="assets/js/limites_form.js"></script>
+<script type="text/javascript">
 
-
+</script>
 <?php
-
-}
 }
 ?>
