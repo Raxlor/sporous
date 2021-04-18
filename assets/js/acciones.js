@@ -8,6 +8,8 @@
  //    \_/ \__,_|_|_|\__,_|\__,_|\___|_|\___/|_| |_|\___||___/ |_|  \___/|_|  |_| |_| |_|\__,_|_|\__,_|_|  |_|\___/
  //
 
+
+
 $('#Tasa_cambioid').attr('disabled', 'true');
 function Tasa_cambio(e) {
   if (e=='no') {
@@ -21,6 +23,27 @@ function Tasa_cambio(e) {
     $('#Tasa_cambioid').removeAttr('disabled');
   }
 };
+// nueva funcione 17/4/2021, motivo de validad si tiene o no secndary contrato
+function validad_inversion_two(valor) {
+  // alertify.success(valor);
+  if (valor=='0') {
+    //en caso de que no tenga se establecera, todo oculto en cuanto a el secondary contrato
+    $('.inversion_two').val('');
+    $('.inversion_two').attr('hidden',true);
+      $('.inversion_two').attr('disabled',true);
+      $('#texto_informativo_inversion_two').tooltip('hide');
+  }else {
+    $('#texto_informativo_inversion_two').tooltip('show');
+    $('.inversion_two').val('');
+    $('.inversion_two').removeAttr('hidden');
+      $('.inversion_two').removeAttr('disabled');
+  };
+  setTimeout(function () {
+    $('#texto_informativo_inversion_two').tooltip('hide');
+  }, 4000);
+};
+// fin sectmento de codigo
+
 function ReTasa_cambio(e,value) {
   if (e=='no') {
     $('#Tasa_cambioid').val();
@@ -744,6 +767,541 @@ function Eliminar_corredor(e) {
      });
  };
 
+
+
+ //  _ _     _            _                                     _
+ // | (_)___| |_ __ _  __| | ___     ___ ___  _ __ _ __ ___  __| | ___  _ __
+ // | | / __| __/ _` |/ _` |/ _ \   / __/ _ \| '__| '__/ _ \/ _` |/ _ \| '__|
+ // | | \__ \ || (_| | (_| | (_) | | (_| (_) | |  | | |  __/ (_| | (_) | |
+ // |_|_|___/\__\__,_|\__,_|\___/   \___\___/|_|  |_|  \___|\__,_|\___/|_|
+ //
+
+
+
+ $('#search_Corredor_de_bolsa_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/corredor/search_corredor.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_cliente_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_Corredor_de_bolsa_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_Corredor_de_bolsa_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_Corredor_de_bolsa_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+
+
+
+ //  _     _     _            _             _                              _                 ____ _ _            _
+ // | |   (_)___| |_ __ _  __| | ___     __| | ___   _ __   ___  _ __ ___ (_)_ __   __ _    / ___| (_) ___ _ __ | |_ ___
+ // | |   | / __| __/ _` |/ _` |/ _ \   / _` |/ _ \ | '_ \ / _ \| '_ ` _ \| | '_ \ / _` |  | |   | | |/ _ \ '_ \| __/ _ \
+ // | |___| \__ \ || (_| | (_| | (_) | | (_| |  __/ | | | | (_) | | | | | | | | | | (_| |  | |___| | |  __/ | | | ||  __/
+ // |_____|_|___/\__\__,_|\__,_|\___/   \__,_|\___| |_| |_|\___/|_| |_| |_|_|_| |_|\__,_|___\____|_|_|\___|_| |_|\__\___|
+ //                                                                                    |_____|
+ //
+ $('#search_nomina_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/nominas/nomina_clientes_listado.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_nomina_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_nomina_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_nomina_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_nomina_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+ $('#search_nomina_corredor_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/nominas/nomina_corredor_listado.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_nomina_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_nomina_corredor_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_nomina_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_nomina_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+
+ //  _                                      _ _            _
+ // | |__   ___  _ __ _ __ __ _ _ __    ___| (_) ___ _ __ | |_ ___
+ // | '_ \ / _ \| '__| '__/ _` | '__|  / __| | |/ _ \ '_ \| __/ _ \
+ // | |_) | (_) | |  | | | (_| | |    | (__| | |  __/ | | | ||  __/
+ // |_.__/ \___/|_|  |_|  \__,_|_|     \___|_|_|\___|_| |_|\__\___|
+ //
+ //
+
+ function Eliminar_cliente(id_cliente) {
+   alertify.confirm("Sistema: ¿Realmente quieres Eliminar Este Cliente? <br> <center>Preciona 'OK' para Eliminar. </center>",
+   function(){
+   alertify.success('Sistema:Eliminando del sistema...');
+   $.ajax({
+     type:'POST',
+     data:'id='+id_cliente,
+     url:'vistas/acciones/cliente/Eliminar_cliente.php',
+     success:function(msg) {
+       $('#Alerta_new_surtidora').html(msg);
+       // para crear tiempo para la recarga de la vista
+         setTimeout(function () {
+         }, 500);
+     }
+   })
+   },
+   function(){
+   alertify.error('Sistema: Cancelado');
+   });
+ };
+
+
+ //  ____                               ____                        _
+ // | __ )  ___  _ __ _ __ __ _ _ __   / ___|___  _ __ _ __ ___  __| | ___  _ __
+ // |  _ \ / _ \| '__| '__/ _` | '__| | |   / _ \| '__| '__/ _ \/ _` |/ _ \| '__|
+ // | |_) | (_) | |  | | | (_| | |    | |__| (_) | |  | | |  __/ (_| | (_) | |
+ // |____/ \___/|_|  |_|  \__,_|_|     \____\___/|_|  |_|  \___|\__,_|\___/|_|
+ //
+
+function Eliminar_corredor(e) {
+  alertify.confirm("Sistema: ¿Realmente quieres Eliminar Este corredor? <br>  <center>Preciona 'OK' para Eliminar. <br><br> <center><i class='fas fa-exclamation-triangle fa-3x m-2 text-warning animated bounce infinite'></i></center></center> <cite>Nota: Al eliminar el corredor no afectara los cliente que previamente tengan el nombre de dicho corredor en su registro, pero no aparecera en la lista para selecionarlo para futuros cliente o modificaciones. </cite><br>",
+    function () {
+      alertify.success('Sistema:Eliminando del sistema...');
+
+      $.ajax({
+        type:'POST',
+        data:'id='+e,
+        url:'vistas/acciones/corredor/eliminar_corredor.php',
+        success:function(msg) {
+          $('#Alerta_new_surtidora').html(msg);
+          // para crear tiempo para la recarga de la vista
+            setTimeout(function () {
+                Listado_corredor_de_bolsa(idSession);
+            }, 500);
+        }
+      })
+    },function () {
+       alertify.error('Sistema: Cancelado');
+    });
+};
+
+
+
+
+
+ //
+ //                                      _ _            _
+ //  _ __   __ _  __ _  __ _ _ __    ___| (_) ___ _ __ | |_ ___
+ // | '_ \ / _` |/ _` |/ _` | '__|  / __| | |/ _ \ '_ \| __/ _ \
+ // | |_) | (_| | (_| | (_| | |    | (__| | |  __/ | | | ||  __/
+ // | .__/ \__,_|\__, |\__,_|_|     \___|_|_|\___|_| |_|\__\___|
+ // |_|          |___/
+ ///
+
+
+ function Nomina_cliente_pagar(e) {
+   $('.progress-bar').css('width', 0+'%');
+   alertify.confirm("<center><i class='fas fa-exclamation fa-4x text-warning animated shake '></i><br><br> Sistema: Esta apunto de aplicar un pago. ¿Esta seguro? <br> El cliente recibira un correo notificandole que se le aplico el pago.<br><br><br> Sistema: Selecione foto de la factura de esta transacción (peso maximo 3MB) <br><input type='file' id='file' value=''><Br><Br>Sistema: Por favor llene esta casilla..<BR><input type='text' id='Numero_tiker'placeholder='Numero de transacción'  class='form-control'><br>Sistema: Selecione fecha si, desea almacenar el pago como que se realizó en una fecha específica. <Br>  <input type='date' id='fecha' name='fecha' class='form-control' value='' /> ",
+     function () {
+       $('#carga_progreso').modal('show');
+       img=document.getElementById('file').files[0];
+       fecha=$('#fecha').val();
+       numero_tran=$('#Numero_tiker').val();
+       formData = new FormData();
+       formData.append("photo", img);
+       formData.append("fecha", fecha);
+       formData.append("Numero_factura", numero_tran);
+       formData.append("id", e);
+       $.ajax({
+         type:'POST',
+          dataType: "html",
+         data:formData,
+         url:' vistas/acciones/nominas/pay_clienteV1_cliente.php',
+         cache: false,
+         contentType: false,
+         processData: false,
+         xhr: function () {
+        var xhr = $.ajaxSettings.xhr();
+         xhr.upload.onprogress = function (e) {
+            // For uploads
+            if (e.lengthComputable) {
+                var percentComplete =(e.loaded / e.total);
+                console.log($por=Math.round(percentComplete * 100));
+                $('.progress-bar').attr('data-progress',$por );
+                $('.progress-bar').css('width', $por+'%');
+            }
+        };
+        return xhr;
+    },
+         beforeSend:function (e) {
+           alertify.success('Sistema: Procesando datos....');
+         },
+         success:function(msg) {
+           $('#Alerta_new_surtidora').html(msg);
+           // para crear tiempo para la recarga de la vista
+           alertify.success('Sistema: Todo los datos Recibido');
+             setTimeout(function () {
+               $('#carga_progreso').modal('toggle');
+             }, 500);
+         }
+       })
+     },function () {
+        alertify.error('Sistema: Pago Cancelado');
+     });
+ };
+ function Nomina_gestor_pagar(e) {
+   $('.progress-bar').css('width', 0+'%');
+   alertify.confirm("<center><i class='fas fa-exclamation fa-4x text-warning animated shake '></i><br><br> Sistema: Esta apunto de aplicar un pago. ¿Esta seguro? <br> El Gestor de Capital recibira un correo notificandole que se le aplico el pago.<br><br><br> Sistema: Selecione foto de la factura de esta transacción (peso maximo 3MB) <br><input type='file' id='file' value=''><Br><Br>Sistema: Por favor llene esta casilla..<BR><input type='text' id='Numero_tiker' class='form-control'> ",
+     function () {
+       $('#carga_progreso').modal('show');
+       img=document.getElementById('file').files[0];
+       numero_tran=$('#Numero_tiker').val();
+       formData = new FormData();
+       formData.append("photo", img);
+       formData.append("Numero_factura", numero_tran);
+       formData.append("id", e);
+       $.ajax({
+         setTimeout(function () {
+            $('#search_cliente_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_cliente_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+
+
+
+ //  _ _     _            _                                     _
+ // | (_)___| |_ __ _  __| | ___     ___ ___  _ __ _ __ ___  __| | ___  _ __
+ // | | / __| __/ _` |/ _` |/ _ \   / __/ _ \| '__| '__/ _ \/ _` |/ _ \| '__|
+ // | | \__ \ || (_| | (_| | (_) | | (_| (_) | |  | | |  __/ (_| | (_) | |
+ // |_|_|___/\__\__,_|\__,_|\___/   \___\___/|_|  |_|  \___|\__,_|\___/|_|
+ //
+
+
+
+ $('#search_Corredor_de_bolsa_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/corredor/search_corredor.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_cliente_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_Corredor_de_bolsa_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_Corredor_de_bolsa_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_Corredor_de_bolsa_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+
+
+
+ //  _     _     _            _             _                              _                 ____ _ _            _
+ // | |   (_)___| |_ __ _  __| | ___     __| | ___   _ __   ___  _ __ ___ (_)_ __   __ _    / ___| (_) ___ _ __ | |_ ___
+ // | |   | / __| __/ _` |/ _` |/ _ \   / _` |/ _ \ | '_ \ / _ \| '_ ` _ \| | '_ \ / _` |  | |   | | |/ _ \ '_ \| __/ _ \
+ // | |___| \__ \ || (_| | (_| | (_) | | (_| |  __/ | | | | (_) | | | | | | | | | | (_| |  | |___| | |  __/ | | | ||  __/
+ // |_____|_|___/\__\__,_|\__,_|\___/   \__,_|\___| |_| |_|\___/|_| |_| |_|_|_| |_|\__,_|___\____|_|_|\___|_| |_|\__\___|
+ //                                                                                    |_____|
+ //
+ $('#search_nomina_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/nominas/nomina_clientes_listado.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_nomina_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_nomina_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_nomina_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_nomina_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+ $('#search_nomina_corredor_jquery_form').submit(function(e){
+   var checkBox = document.getElementById("Check_Articulo");
+   var formData = new FormData($(this)[0]);
+     $.ajax({
+         url: "vistas/acciones/nominas/nomina_corredor_listado.php",
+         type: "POST",
+         data: formData,
+         async: false,beforeSend:function() {
+           $('#search_nomina_jquery_buttom').attr('disabled', 'true');
+         },
+          success:function(e) {
+            $('#search_nomina_corredor_jquery').fadeOut(0).html(e).fadeIn(1000);
+            // tiempo para evitar que spamen este botom y evitar error con data table
+            setTimeout(function () {
+            $('#search_nomina_jquery_buttom').removeAttr('disabled');
+          }, 800);
+          },error:function() {
+           setTimeout(function () {
+             alertify.error('Sistema: La pagina solicitada esta colgada');
+             $('#search_nomina_jquery_buttom').removeAttr('disabled');
+         }, 800);
+         },
+         cache: false,
+         contentType: false,
+         processData: false
+     });
+     e.preventDefault();
+ });
+
+ //  _                                      _ _            _
+ // | |__   ___  _ __ _ __ __ _ _ __    ___| (_) ___ _ __ | |_ ___
+ // | '_ \ / _ \| '__| '__/ _` | '__|  / __| | |/ _ \ '_ \| __/ _ \
+ // | |_) | (_) | |  | | | (_| | |    | (__| | |  __/ | | | ||  __/
+ // |_.__/ \___/|_|  |_|  \__,_|_|     \___|_|_|\___|_| |_|\__\___|
+ //
+ //
+
+ function Eliminar_cliente(id_cliente) {
+   alertify.confirm("Sistema: ¿Realmente quieres Eliminar Este Cliente? <br> <center>Preciona 'OK' para Eliminar. </center>",
+   function(){
+   alertify.success('Sistema:Eliminando del sistema...');
+   $.ajax({
+     type:'POST',
+     data:'id='+id_cliente,
+     url:'vistas/acciones/cliente/Eliminar_cliente.php',
+     success:function(msg) {
+       $('#Alerta_new_surtidora').html(msg);
+       // para crear tiempo para la recarga de la vista
+         setTimeout(function () {
+         }, 500);
+     }
+   })
+   },
+   function(){
+   alertify.error('Sistema: Cancelado');
+   });
+ };
+
+
+ //  ____                               ____                        _
+ // | __ )  ___  _ __ _ __ __ _ _ __   / ___|___  _ __ _ __ ___  __| | ___  _ __
+ // |  _ \ / _ \| '__| '__/ _` | '__| | |   / _ \| '__| '__/ _ \/ _` |/ _ \| '__|
+ // | |_) | (_) | |  | | | (_| | |    | |__| (_) | |  | | |  __/ (_| | (_) | |
+ // |____/ \___/|_|  |_|  \__,_|_|     \____\___/|_|  |_|  \___|\__,_|\___/|_|
+ //
+
+function Eliminar_corredor(e) {
+  alertify.confirm("Sistema: ¿Realmente quieres Eliminar Este corredor? <br>  <center>Preciona 'OK' para Eliminar. <br><br> <center><i class='fas fa-exclamation-triangle fa-3x m-2 text-warning animated bounce infinite'></i></center></center> <cite>Nota: Al eliminar el corredor no afectara los cliente que previamente tengan el nombre de dicho corredor en su registro, pero no aparecera en la lista para selecionarlo para futuros cliente o modificaciones. </cite><br>",
+    function () {
+      alertify.success('Sistema:Eliminando del sistema...');
+
+      $.ajax({
+        type:'POST',
+        data:'id='+e,
+        url:'vistas/acciones/corredor/eliminar_corredor.php',
+        success:function(msg) {
+          $('#Alerta_new_surtidora').html(msg);
+          // para crear tiempo para la recarga de la vista
+            setTimeout(function () {
+                Listado_corredor_de_bolsa(idSession);
+            }, 500);
+        }
+      })
+    },function () {
+       alertify.error('Sistema: Cancelado');
+    });
+};
+
+
+
+
+
+ //
+ //                                      _ _            _
+ //  _ __   __ _  __ _  __ _ _ __    ___| (_) ___ _ __ | |_ ___
+ // | '_ \ / _` |/ _` |/ _` | '__|  / __| | |/ _ \ '_ \| __/ _ \
+ // | |_) | (_| | (_| | (_| | |    | (__| | |  __/ | | | ||  __/
+ // | .__/ \__,_|\__, |\__,_|_|     \___|_|_|\___|_| |_|\__\___|
+ // |_|          |___/
+ ///
+
+
+ function Nomina_cliente_pagar(e) {
+   $('.progress-bar').css('width', 0+'%');
+   alertify.confirm("<center><i class='fas fa-exclamation fa-4x text-warning animated shake '></i><br><br> Sistema: Esta apunto de aplicar un pago. ¿Esta seguro? <br> El cliente recibira un correo notificandole que se le aplico el pago.<br><br><br> Sistema: Selecione foto de la factura de esta transacción (peso maximo 3MB) <br><input type='file' id='file' value=''><Br><Br>Sistema: Por favor llene esta casilla..<BR><input type='text' id='Numero_tiker'placeholder='Numero de transacción'  class='form-control'><br>Sistema: Selecione fecha si, desea almacenar el pago como que se realizó en una fecha específica. <Br>  <input type='date' id='fecha' name='fecha' class='form-control' value='' /> ",
+     function () {
+       $('#carga_progreso').modal('show');
+       img=document.getElementById('file').files[0];
+       fecha=$('#fecha').val();
+       numero_tran=$('#Numero_tiker').val();
+       formData = new FormData();
+       formData.append("photo", img);
+       formData.append("fecha", fecha);
+       formData.append("Numero_factura", numero_tran);
+       formData.append("id", e);
+       $.ajax({
+         type:'POST',
+          dataType: "html",
+         data:formData,
+         url:' vistas/acciones/nominas/pay_clienteV1_cliente.php',
+         cache: false,
+         contentType: false,
+         processData: false,
+         xhr: function () {
+        var xhr = $.ajaxSettings.xhr();
+         xhr.upload.onprogress = function (e) {
+            // For uploads
+            if (e.lengthComputable) {
+                var percentComplete =(e.loaded / e.total);
+                console.log($por=Math.round(percentComplete * 100));
+                $('.progress-bar').attr('data-progress',$por );
+                $('.progress-bar').css('width', $por+'%');
+            }
+        };
+        return xhr;
+    },
+         beforeSend:function (e) {
+           alertify.success('Sistema: Procesando datos....');
+         },
+         success:function(msg) {
+           $('#Alerta_new_surtidora').html(msg);
+           // para crear tiempo para la recarga de la vista
+           alertify.success('Sistema: Todo los datos Recibido');
+             setTimeout(function () {
+               $('#carga_progreso').modal('toggle');
+             }, 500);
+         }
+       })
+     },function () {
+        alertify.error('Sistema: Pago Cancelado');
+     });
+ };
+ function Nomina_gestor_pagar(e) {
+   $('.progress-bar').css('width', 0+'%');
+   alertify.confirm("<center><i class='fas fa-exclamation fa-4x text-warning animated shake '></i><br><br> Sistema: Esta apunto de aplicar un pago. ¿Esta seguro? <br> El Gestor de Capital recibira un correo notificandole que se le aplico el pago.<br><br><br> Sistema: Selecione foto de la factura de esta transacción (peso maximo 3MB) <br><input type='file' id='file' value=''><Br><Br>Sistema: Por favor llene esta casilla..<BR><input type='text' id='Numero_tiker' class='form-control'> ",
+     function () {
+       $('#carga_progreso').modal('show');
+       img=document.getElementById('file').files[0];
+       numero_tran=$('#Numero_tiker').val();
+       formData = new FormData();
+       formData.append("photo", img);
+       formData.append("Numero_factura", numero_tran);
+       formData.append("id", e);
+       $.ajax({
+         type:'POST',
+          dataType: "html",
+         data:formData,
+         url:' vistas/acciones/nominas/pay_gestor_capitalv1.php',
+         cache: false,
+         contentType: false,
+         processData: false,
+         xhr: function () {
+        var xhr = $.ajaxSettings.xhr();
+         xhr.upload.onprogress = function (e) {
+            // For uploads
+            if (e.lengthComputable) {
+                var percentComplete =(e.loaded / e.total);
+                console.log($por=Math.round(percentComplete * 100));
+                $('.progress-bar').attr('data-progress',$por );
+                $('.progress-bar').css('width', $por+'%');
+            }
+        };
+        return xhr;
+    },
+         beforeSend:function (e) {
+           alertify.success('Sistema: Procesando datos....');
+         },
+         success:function(msg) {
+           $('#Alerta_new_surtidora').html(msg);
+           // para crear tiempo para la recarga de la vista
+           alertify.success('Sistema: Todo los datos Recibido');
+             setTimeout(function () {
+               $('#carga_progreso').modal('toggle');
+             }, 500);
+         }
+       })
+     },function () {
+        alertify.error('Sistema: Pago Cancelado');
+     });
+ };
+
  //
  //  _____     _     _          ____ _ _            _             _   _                       _
  // |_   _|_ _| |__ | | __ _   / ___| (_) ___ _ __ | |_ ___      | \ | | ___  _ __ ___  _ __ (_)_ __   __ _
@@ -967,7 +1525,7 @@ function Atender(e) {
   //
 
 
-  
+
     $('#search_Aumentar_inversion_jquery_form').submit(function(e){
       var checkBox = document.getElementById("Check_Articulo");
       var formData = new FormData($(this)[0]);
